@@ -1,4 +1,5 @@
 const API_KEY = "24dd77fa";
+let fiveMovies = [];
 
 async function fetchData(url) {
   try {
@@ -14,25 +15,36 @@ async function fetchData(url) {
   }
 }
 
-async function GetTopFiveMovies() {
+async function getMoviesList() {
   const url = "https://santosnr6.github.io/Data/favoritemovies.json";
   try {
-    let movies = fetchData(url);
-    console.log("Five Movie List:", movies);
-    return movies;
+    let topTwentyMovies = await fetchData(url);
+    topTwentyMovies = topTwentyMovies.slice(0, 20);
+    console.log("Top 20 List:", topTwentyMovies);
+    return topTwentyMovies;
+  } catch (error) {
+    console.error(`Error getting  movie list: ${error.message}`);
+    throw error;
+  }
+}
+
+async function randomMovies() {
+  const url = "https://santosnr6.github.io/Data/favoritemovies.json";
+  try {
+    let fiveMovies = await fetchData(url);
+    return fiveMovies.sort(() => (Math.random() > 0.5 ? 1 : -1)).slice(0, 5);
   } catch (error) {
     console.error(`Error getting five movie list: ${error.message}`);
     throw error;
   }
 }
 
-async function getAllMovies() {
+async function searchMovies(query) {
   const url = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`;
   try {
-    let movies = fetchData(url);
-    let movieAllList = await response.json();
-    console.log("All Movie List:", movieAllList);
-    return movieAllList;
+    let movieList = await fetchData(url);
+    console.log(" Movie List:", movieList);
+    return movieList;
   } catch (error) {
     console.error(`Error getting movie list: ${error.message}`);
     throw error;
@@ -42,8 +54,7 @@ async function getAllMovies() {
 async function getMovieDetails(imdbID) {
   const url = "http://www.omdbapi.com/?apikey=[yourkey]&plot=full&i=[imdb-ID]";
   try {
-    let movies = fetchData(url);
-    let movieDetails = await response.json();
+    let movieDetails = await fetchData(url);
     console.log("Movie Details:", movieDetails);
     return movieDetails;
   } catch (error) {
@@ -51,4 +62,4 @@ async function getMovieDetails(imdbID) {
   }
 }
 
-export { getAllMovies, GetTopFiveMovies, getMovieDetails, API_KEY };
+export { searchMovies, getMoviesList, getMovieDetails, API_KEY, randomMovies };
