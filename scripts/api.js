@@ -32,7 +32,7 @@ async function randomMovies() {
   const url = "https://santosnr6.github.io/Data/favoritemovies.json";
   try {
     let fiveMovies = await fetchData(url);
-    return fiveMovies.sort(() => (Math.random() > 0.5 ? 1 : -1)).slice(0, 5);
+    return fivseMovies.sort(() => (Math.random() > 0.5 ? 1 : -1)).slice(0, 5);
   } catch (error) {
     console.error(`Error getting five movie list: ${error.message}`);
     throw error;
