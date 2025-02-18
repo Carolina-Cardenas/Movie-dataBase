@@ -1,32 +1,26 @@
-import { getFiveMovies, searchAllMovies } from "./api";
+import { searchMovies } from "./api.js";
 
-async function searchAllMovies(event) {
+async function handleMovieSearch(event) {
   event.preventDefault();
-  let searchMovieImput = document
+
+  let searchMovieInput = document
     .querySelector("#searchMovieInput")
-    .value.toLowerCase();
-  console.log("search:", searchMovieImput);
+    .value.toLowerCase()
+    .trim();
+  console.log("Searching for movie:", searchMovieInput);
 
   try {
-    let movieList = await searchAllMovies(searchMovieImput);
-    let movie = movieList.search.find(
-      (p) => p.Title.toLowerCase() === searchMovieImput
-    );
-
-    if (movie) {
-      let movieDetailsRespons = await fetch(movie.imdbID);
-      if (!movieDetailsRespons.ok) {
-        throw new Error(`Error fetching data from URL: ${movie.url}`);
-      }
-      let movieDetails = await movieDetailsRespons.json();
-      console.log("Movies Details:", movieDetails);
-
-      document.getElementById("movieDetails").innerHTML =
-        "<p>Not found this Movie.</p>";
+    let movie = await searchMovies(searchMovieInput);
+    console.log("searchMovieInput", searchMovieInput);
+    if (movie && movie.Title) {
+      displayMovieDetails(movie);
+    } else {
+      displayNoMovieFound();
     }
   } catch (error) {
     console.log(`Error: ${error.message}`);
+    displayError(error.message);
   }
 }
 
-export { searchAllMovies };
+export { handleMovieSearch };

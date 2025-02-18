@@ -40,19 +40,21 @@ async function randomMovies() {
 }
 
 async function searchMovies(query) {
-  const url = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`;
+  console.log("query", query);
+  const url = `https://www.omdbapi.com/?apikey=${API_KEY}&t=${query}`;
   try {
-    let movieList = await fetchData(url);
-    console.log(" Movie List:", movieList);
-    return movieList;
+    console.log("url :", url);
+    let movie = await fetchData(url);
+    console.log(" Movie:", movie);
+    return movie;
   } catch (error) {
-    console.error(`Error getting movie list: ${error.message}`);
+    console.error(`Error getting search movie: ${error.message}`);
     throw error;
   }
 }
 
 async function getMovieDetails(imdbID) {
-  const url = "http://www.omdbapi.com/?apikey=[yourkey]&plot=full&i=[imdb-ID]";
+  const url = `https://www.omdbapi.com/?apikey=${API_KEY}&plot=full&i=${imdbID}`;
   try {
     let movieDetails = await fetchData(url);
     console.log("Movie Details:", movieDetails);

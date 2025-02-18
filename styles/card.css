@@ -1,0 +1,83 @@
+/* Estilos generales */
+.content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.popular-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.movie-card {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+}
+
+.movie-card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.movie-card figure {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.movie-card img {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.movie-card figcaption {
+    padding: 15px;
+}
+
+.movie-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.movie-card p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Media Query para Tablets (3 columnas) */
+@media (max-width: 1024px) {
+    .card-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Media Query para Móviles (2 columnas) */
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Media Query para pantallas pequeñas (1 columna) */
+@media (max-width: 480px) {
+    .card-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
