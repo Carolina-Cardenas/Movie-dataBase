@@ -38,6 +38,6 @@ function displayTopTwentyMovies(movies) {
 export {
   displayMovieDetails,
   displayNoMovieFound,
-  //   displayError,
+  displayError,
   displayTopTwentyMovies,
 };

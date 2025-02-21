@@ -2,7 +2,7 @@ import { getMoviesList, searchMovies, randomMovies } from "./api.js";
 import {
   displayMovieDetails,
   displayNoMovieFound,
-  //   displayError,
+  displayError,
   displayTopTwentyMovies,
 } from "./domUtils.js";
 import { renderTrailers } from "./carousel.js";
@@ -26,7 +26,7 @@ async function handleMovieSearch(event) {
     }
   } catch (error) {
     console.log(`Error: ${error.message}`);
-    // displayError(error.message);
+    displayError(error.message);
   }
 }
 
@@ -41,7 +41,6 @@ async function showTopTwentyMovies() {
     }
   } catch (error) {
     console.log(`Error: ${error.message}`);
-    // displayError(error.message);
   }
 }
 
@@ -55,7 +54,6 @@ async function displayRandomTrailers() {
     });
   } catch (error) {
     console.error("Error loading trailers:", error);
-    // displayError(error.message);
   }
 }
 export { handleMovieSearch, showTopTwentyMovies, displayRandomTrailers };
