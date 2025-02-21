@@ -1,4 +1,11 @@
-import { searchMovies } from "./api.js";
+import { getMoviesList, searchMovies, randomMovies } from "./api.js";
+import {
+  displayMovieDetails,
+  displayNoMovieFound,
+  //   displayError,
+  displayTopTwentyMovies,
+} from "./domUtils.js";
+import { renderTrailers } from "./carousel.js";
 
 async function handleMovieSearch(event) {
   event.preventDefault();
@@ -19,8 +26,36 @@ async function handleMovieSearch(event) {
     }
   } catch (error) {
     console.log(`Error: ${error.message}`);
-    displayError(error.message);
+    // displayError(error.message);
   }
 }
 
-export { handleMovieSearch };
+async function showTopTwentyMovies() {
+  try {
+    let movieCollection = await getMoviesList();
+    console.log("Top Rated Movies:", movieCollection);
+    if (movieCollection && movieCollection.length > 0) {
+      displayTopTwentyMovies(movieCollection);
+    } else {
+      showEmptyStateMessage();
+    }
+  } catch (error) {
+    console.log(`Error: ${error.message}`);
+    // displayError(error.message);
+  }
+}
+
+async function displayRandomTrailers() {
+  try {
+    console.log("Displaying random trailers");
+    let randomMovieCollection = await randomMovies();
+    console.log("Random Movie Collection:", randomMovieCollection);
+    randomMovieCollection.forEach((movie, index) => {
+      renderTrailers(movie, index + 1);
+    });
+  } catch (error) {
+    console.error("Error loading trailers:", error);
+    // displayError(error.message);
+  }
+}
+export { handleMovieSearch, showTopTwentyMovies, displayRandomTrailers };

@@ -17,4 +17,27 @@ function displayError(errorMessage) {
   movieDetailsDiv.innerHTML = `<p>Error: ${errorMessage}</p>`;
 }
 
-export { displayMovieDetails, displayNoMovieFound, displayError };
+function displayTopTwentyMovies(movies) {
+  const movieList = document.querySelector("#cardContainer");
+  console.log("Movie List:", movieList);
+
+  movieList.innerHTML = movies
+    .map(
+      (movie) => `
+        <article class="movie-card">
+          <a href="${movie.imdbID}">
+            <figure>
+              <img src="${movie.Poster}" alt="${movie.Title}" />
+            </figure>
+          </a>
+        </article>`
+    )
+    .join("");
+}
+
+export {
+  displayMovieDetails,
+  displayNoMovieFound,
+  //   displayError,
+  displayTopTwentyMovies,
+};
