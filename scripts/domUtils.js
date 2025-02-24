@@ -1,3 +1,12 @@
+import { toggleFavorite } from "./favorites.js";
+async function loadSVG(url) {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Error loading SVG: ${response.status}`);
+  }
+
+  return await response.text();
+}
 function displayMovieDetails(movie) {
   const movieDetailsDiv = document.querySelector("#movieDetails");
   movieDetailsDiv.innerHTML = `
@@ -17,22 +26,44 @@ function displayError(errorMessage) {
   movieDetailsDiv.innerHTML = `<p>Error: ${errorMessage}</p>`;
 }
 
-function displayTopTwentyMovies(movies) {
+async function displayTopTwentyMovies(movies, favorites) {
   const movieList = document.querySelector("#cardContainer");
-  console.log("Movie List:", movieList);
+  if (!movieList) {
+    console.error("El contenedor de películas no se encontró.");
+    return;
+  }
+  movieList.innerHTML = await Promise.all(
+    movies.map(async (movie) => {
+      const isFavorite = favorites.includes(movie.imdbID);
 
-  movieList.innerHTML = movies
-    .map(
-      (movie) => `
-        <article class="movie-card">
+      const svgContent = await loadSVG("./res/icons/star.svg");
+
+      const svgHTML = svgContent.replace(
+        /<svg\s+/,
+        `<svg class="favorite-star ${isFavorite ? "favorited" : ""}" data-id="${
+          movie.imdbID
+        }" `
+      );
+
+      return `<article class="movie-card">
+       ${svgHTML} 
+         
           <a href="${movie.imdbID}">
             <figure>
               <img src="${movie.Poster}" alt="${movie.Title}" />
             </figure>
           </a>
-        </article>`
-    )
-    .join("");
+        </article>`;
+    })
+  ).then((results) => results.join(""));
+
+  document.querySelectorAll(".favorite-star").forEach((star) => {
+    star.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const svg = event.currentTarget;
+      toggleFavorite(event, svg);
+    });
+  });
 }
 
 export {

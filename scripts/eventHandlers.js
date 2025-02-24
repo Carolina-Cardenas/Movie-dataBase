@@ -35,7 +35,8 @@ async function showTopTwentyMovies() {
     let movieCollection = await getMoviesList();
     console.log("Top Rated Movies:", movieCollection);
     if (movieCollection && movieCollection.length > 0) {
-      displayTopTwentyMovies(movieCollection);
+      let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+      displayTopTwentyMovies(movieCollection, favorites);
     } else {
       showEmptyStateMessage();
     }
