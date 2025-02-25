@@ -1,3 +1,7 @@
+import { fetchMoviesDetails } from "./api.js";
+import { renderMovies } from "./domUtils.js";
+import { showFavorites } from "./eventHandlers.js";
+
 function toggleFavorite(event, svg) {
   event.stopPropagation();
   const movieId = svg.getAttribute("data-id");
@@ -14,4 +18,24 @@ function toggleFavorite(event, svg) {
   localStorage.setItem("favorites", JSON.stringify(favorites));
 }
 
-export { toggleFavorite };
+document.addEventListener("DOMContentLoaded", async () => {
+  if (window.location.pathname.includes("favorites.html")) {
+    showFavorites();
+  }
+});
+
+function removeFavorite(movieId) {
+  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+  favorites = favorites.filter((id) => id !== movieId);
+
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+
+  const favoriteMoviesContainer = document.getElementById("cardContainer");
+
+  fetchMoviesDetails(favorites).then((movies) => {
+    renderMovies(favoriteMoviesContainer, movies);
+  });
+}
+
+export { toggleFavorite, removeFavorite };

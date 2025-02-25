@@ -1,5 +1,5 @@
 const API_KEY = "24dd77fa";
-let fiveMovies = [];
+const API_URL = "https://www.omdbapi.com/?apikey=24dd77fa&i=";
 
 async function fetchData(url) {
   try {
@@ -64,4 +64,35 @@ async function getMovieDetails(imdbID) {
   }
 }
 
-export { searchMovies, getMoviesList, getMovieDetails, API_KEY, randomMovies };
+async function fetchMoviesDetail(id) {
+  try {
+    const response = await fetch(API_URL + id);
+    console.log("Response", response);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status} for ID: ${id}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error(`Error fetching movie by ID ${id}:`, error);
+    return null;
+  }
+}
+
+async function fetchMoviesDetails(ids) {
+  console.log("Ids", ids);
+  const validIds = ids.filter(
+    (id) => id !== null && id !== undefined && id !== ""
+  );
+
+  return Promise.all(validIds.map(fetchMoviesDetail));
+}
+
+export {
+  searchMovies,
+  getMoviesList,
+  getMovieDetails,
+  API_KEY,
+  randomMovies,
+  fetchMoviesDetail,
+  fetchMoviesDetails,
+};

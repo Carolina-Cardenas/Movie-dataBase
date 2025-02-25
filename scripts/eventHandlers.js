@@ -1,9 +1,15 @@
-import { getMoviesList, searchMovies, randomMovies } from "./api.js";
+import {
+  getMoviesList,
+  searchMovies,
+  randomMovies,
+  fetchMoviesDetails,
+} from "./api.js";
 import {
   displayMovieDetails,
   displayNoMovieFound,
   displayError,
   displayTopTwentyMovies,
+  renderMovies,
 } from "./domUtils.js";
 import { renderTrailers } from "./carousel.js";
 
@@ -44,6 +50,25 @@ async function showTopTwentyMovies() {
     console.log(`Error: ${error.message}`);
   }
 }
+async function showFavorites() {
+  try {
+    const favoriteMoviesContainer = document.getElementById("cardContainer");
+
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+    if (favorites.length === 0) {
+      favoriteMoviesContainer.innerHTML =
+        "<p>You don't have any favorite movies yet.</p>";
+      return;
+    }
+
+    const favoriteMoviesList = await fetchMoviesDetails(favorites);
+    console.log("Favorite Movies List:", favoriteMoviesList);
+    renderMovies(favoriteMoviesContainer, favoriteMoviesList);
+  } catch (error) {
+    console.error("Error loading favorites page:", error);
+  }
+}
 
 async function displayRandomTrailers() {
   try {
@@ -57,4 +82,19 @@ async function displayRandomTrailers() {
     console.error("Error loading trailers:", error);
   }
 }
-export { handleMovieSearch, showTopTwentyMovies, displayRandomTrailers };
+
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    await showTopTwentyMovies();
+  } catch (error) {
+    console.error("Error general en DOMContentLoaded:", error);
+    displayError("An error occurred while loading the page.");
+  }
+});
+
+export {
+  handleMovieSearch,
+  showTopTwentyMovies,
+  displayRandomTrailers,
+  showFavorites,
+};

@@ -108,7 +108,7 @@ body {
 
 .favorite-star path {
     fill: rgba(0, 0, 0, 0.5);
-    stroke: none;
+    stroke: gold;
     transition: fill 0.3s ease, stroke 0.3s ease;
 }
 
