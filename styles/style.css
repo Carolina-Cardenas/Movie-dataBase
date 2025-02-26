@@ -90,7 +90,7 @@ body {
 /* star*/
 .favorite-star {
     position: absolute;
-    top: 18px;
+    top: 0px;
     width: 30px;
     height: 30px;
     padding: 5px;
