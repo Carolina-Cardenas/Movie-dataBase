@@ -1,9 +1,5 @@
 import { getMoviesList, getMovieDetails, randomMovies } from "./api.js";
-import {
-  handleMovieSearch,
-  showTopTwentyMovies,
-  displayRandomTrailers,
-} from "./eventHandlers.js";
+import { handleMovieSearch, displayRandomTrailers } from "./eventHandlers.js";
 import { removeFavorite } from "./favorites.js";
 
 getMoviesList().then((data) => console.log("Personajes iniciales:", data));

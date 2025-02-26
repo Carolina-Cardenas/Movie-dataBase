@@ -20,13 +20,18 @@ async function handleMovieSearch(event) {
     .querySelector("#searchMovieInput")
     .value.toLowerCase()
     .trim();
-  console.log("Searching for movie:", searchMovieInput);
 
   try {
-    let movie = await searchMovies(searchMovieInput);
-    console.log("searchMovieInput", searchMovieInput);
+    const encodedSearchTerm = encodeURIComponent(searchMovieInput);
+
+    // Redirect to search.html with the search term as a query parameter
+    window.location.href = `search.html?search=${encodedSearchTerm}`;
     if (movie && movie.Title) {
-      displayMovieDetails(movie);
+      // if (movie.length === 1) {
+      //   displayMovieDetails(movie);
+      // } else {
+      displayMovies(movie);
+      // }
     } else {
       displayNoMovieFound();
     }
@@ -42,7 +47,8 @@ async function showTopTwentyMovies() {
     console.log("Top Rated Movies:", movieCollection);
     if (movieCollection && movieCollection.length > 0) {
       let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-      displayTopTwentyMovies(movieCollection, favorites);
+      const container = document.querySelector("#cardContainer");
+      renderMovies(container, movieCollection, favorites);
     } else {
       showEmptyStateMessage();
     }
@@ -64,7 +70,8 @@ async function showFavorites() {
 
     const favoriteMoviesList = await fetchMoviesDetails(favorites);
     console.log("Favorite Movies List:", favoriteMoviesList);
-    renderMovies(favoriteMoviesContainer, favoriteMoviesList);
+
+    renderMovies(favoriteMoviesContainer, favoriteMoviesList, favorites);
   } catch (error) {
     console.error("Error loading favorites page:", error);
   }

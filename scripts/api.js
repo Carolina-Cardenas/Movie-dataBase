@@ -41,7 +41,7 @@ async function randomMovies() {
 
 async function searchMovies(query) {
   console.log("query", query);
-  const url = `https://www.omdbapi.com/?apikey=${API_KEY}&t=${query}`;
+  const url = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`;
   try {
     console.log("url :", url);
     let movie = await fetchData(url);
@@ -91,7 +91,6 @@ export {
   searchMovies,
   getMoviesList,
   getMovieDetails,
-  API_KEY,
   randomMovies,
   fetchMoviesDetail,
   fetchMoviesDetails,
