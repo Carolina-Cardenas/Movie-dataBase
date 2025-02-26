@@ -52,6 +52,58 @@ p {
 
 }
 
+.movie-plot {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* Limita el número de líneas visibles */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-height: 4.5em;
+    /* Establece el límite de altura para las primeras 3 líneas */
+    transition: max-height 0.5s ease-in-out;
+}
+
+/* Estilo para el enlace de "Leer más..." */
+.read-more {
+    color: yellow;
+    /* Color amarillo para el texto */
+    cursor: pointer;
+    /* Cambia el cursor para indicar interactividad */
+    text-decoration: none;
+    /* Elimina el subrayado */
+    font-size: 14px;
+}
+
+/* Estilo cuando el texto se expande */
+.movie-plot.expanded {
+    max-height: none;
+    /* El contenido se muestra completamente */
+}
+
+/* Limitar la altura del párrafo y agregar puntos suspensivos */
+.movie-plot {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* Mostrar solo 3 líneas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Estilo del enlace 'Leer más' */
+.read-more {
+    color: yellow;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* Estilo para cuando el texto se expande */
+.movie-plot.expanded {
+    display: block;
+    -webkit-line-clamp: unset;
+    /* Elimina la limitación de líneas */
+}
+
 
 @media screen and (max-width: 768px) {
     .movie-container {

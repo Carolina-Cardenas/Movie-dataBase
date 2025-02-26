@@ -33,21 +33,30 @@ async function displayMovieDetails(movie, favorites = []) {
         <p><strong>IMDB Rating:</strong> ${movie.imdbRating}/10</p>
         <hr>
         <h3>Plot</h3>
-        <p>${movie.Plot}</p>
+        <p id="moviePlot" class="movie-plot">${movie.Plot}</p>
+        <a href="javascript:void(0);" id="readMore" class="read-more">Read More...</a>
         <hr>
         <p><strong>Director:</strong> ${movie.Director}</p>
         <p><strong>Actors:</strong> ${movie.Actors}</p>
-      </article>
+        </article>
        ${svgHTML} 
     </section>
   `;
-  document.querySelectorAll(".favorite-star").forEach((star) => {
-    star.addEventListener("click", (event) => {
-      event.stopPropagation();
-      const svg = event.currentTarget;
-      toggleFavorite(event, svg);
+
+  const readMoreLink = document.getElementById("readMore");
+  const moviePlot = document.getElementById("moviePlot");
+
+  if (readMoreLink && moviePlot) {
+    readMoreLink.addEventListener("click", function () {
+      moviePlot.classList.toggle("expanded");
+
+      if (moviePlot.classList.contains("expanded")) {
+        readMoreLink.textContent = "Leer menos...";
+      } else {
+        readMoreLink.textContent = "Leer más...";
+      }
     });
-  });
+  }
 }
 
 function displayNoMovieFound() {
