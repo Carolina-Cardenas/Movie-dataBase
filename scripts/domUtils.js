@@ -46,14 +46,21 @@ async function displayMovieDetails(movie, favorites = []) {
   const readMoreLink = document.getElementById("readMore");
   const moviePlot = document.getElementById("moviePlot");
 
+  document.querySelectorAll(".favorite-star").forEach((star) => {
+    star.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const svg = event.currentTarget;
+      toggleFavorite(event, svg);
+    });
+  });
   if (readMoreLink && moviePlot) {
     readMoreLink.addEventListener("click", function () {
       moviePlot.classList.toggle("expanded");
 
       if (moviePlot.classList.contains("expanded")) {
-        readMoreLink.textContent = "Leer menos...";
+        readMoreLink.textContent = "Read Less...";
       } else {
-        readMoreLink.textContent = "Leer más...";
+        readMoreLink.textContent = "Read More...";
       }
     });
   }
@@ -95,6 +102,7 @@ async function renderMovies(container, movies, favorites = []) {
               <img src="${movie.Poster}" alt="${movie.Title}" />
             </figure>
           </a>
+          <figcaption>${movie.Title}</figcaption>
         </article>`;
     })
   ).then((results) => results.join(""));

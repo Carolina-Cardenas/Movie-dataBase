@@ -2,6 +2,7 @@ export function renderTrailers(movie, num) {
   const iFrameRef = document.createElement(`iframe`);
   iFrameRef.classList.add(`trailers__video`, `trailers__video-${num}`);
   iFrameRef.src = movie.Trailer_link;
+  iFrameRef.title = `Movie trailer ${movie.Title || "Movie"}`;
   document.querySelector(`.trailers__container`).appendChild(iFrameRef);
 
   const trailerList = document.querySelectorAll(`.trailers__video`);
