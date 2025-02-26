@@ -20,7 +20,6 @@ async function getMoviesList() {
   try {
     let topTwentyMovies = await fetchData(url);
     topTwentyMovies = topTwentyMovies.slice(0, 20);
-    console.log("Top 20 List:", topTwentyMovies);
     return topTwentyMovies;
   } catch (error) {
     console.error(`Error getting  movie list: ${error.message}`);
@@ -40,12 +39,9 @@ async function randomMovies() {
 }
 
 async function searchMovies(query) {
-  console.log("query", query);
   const url = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`;
   try {
-    console.log("url :", url);
     let movie = await fetchData(url);
-    console.log(" Movie:", movie);
     return movie;
   } catch (error) {
     console.error(`Error getting search movie: ${error.message}`);

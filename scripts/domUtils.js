@@ -7,13 +7,47 @@ async function loadSVG(url) {
 
   return await response.text();
 }
-function displayMovieDetails(movie) {
-  const movieDetailsDiv = document.querySelector("#movieDetails");
-  movieDetailsDiv.innerHTML = `
-    <h2>${movie.Title} (${movie.Year})</h2>
-    <p><strong>Director:</strong> ${movie.Director}</p>
-    <p><strong>Plot:</strong> ${movie.Plot}</p>
+
+async function displayMovieDetails(movie, favorites = []) {
+  const movieDetailsSection = document.querySelector("#movieDetails");
+  const isFavorite = favorites.includes(movie.imdbID);
+  const svgContent = await loadSVG("./res/icons/star.svg");
+
+  const svgHTML = svgContent.replace(
+    /<svg\s+/,
+    `<svg class="favorite-star ${isFavorite ? "favorited" : ""}" data-id="${
+      movie.imdbID
+    }" `
+  );
+  movieDetailsSection.innerHTML = `
+    <header class="movie-header">
+      <h2 class="movie-title">${movie.Title} (${movie.Year})</h2>
+    </header>
+    <section class="movie-container">
+      <img class="movie-poster" src="${movie.Poster}" alt="${movie.Title}" />
+      <article class="movie-info">
+        <p><strong>Genre:</strong> ${movie.Genre}</p>
+        <p><strong>Runtime:</strong> ${movie.Runtime}</p>
+        <hr>
+        <p><strong>Released:</strong> ${movie.Released}</p>
+        <p><strong>IMDB Rating:</strong> ${movie.imdbRating}/10</p>
+        <hr>
+        <h3>Plot</h3>
+        <p>${movie.Plot}</p>
+        <hr>
+        <p><strong>Director:</strong> ${movie.Director}</p>
+        <p><strong>Actors:</strong> ${movie.Actors}</p>
+      </article>
+       ${svgHTML} 
+    </section>
   `;
+  document.querySelectorAll(".favorite-star").forEach((star) => {
+    star.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const svg = event.currentTarget;
+      toggleFavorite(event, svg);
+    });
+  });
 }
 
 function displayNoMovieFound() {
@@ -27,7 +61,8 @@ function displayError(errorMessage) {
 }
 
 async function renderMovies(container, movies, favorites = []) {
-  if (movies.length === 0) {
+  console.log("Favorites:", container, movies, favorites);
+  if (movies === 0) {
     container.innerHTML = "<p>No favorite movies found.</p>";
     return;
   }
@@ -46,7 +81,7 @@ async function renderMovies(container, movies, favorites = []) {
       return `<article class="movie-card">
        ${svgHTML} 
          
-          <a href="${movie.imdbID}">
+          <a href="movie.html?id=${movie.imdbID}">
             <figure>
               <img src="${movie.Poster}" alt="${movie.Title}" />
             </figure>

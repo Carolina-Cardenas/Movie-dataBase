@@ -21,7 +21,10 @@
 body {
     background-color: var(--primary-bg);
     max-width: 100%;
+    font-family: 'NombreDeTuFuente', sans-serif;
+
 }
+
 
 /* Utils */
 .content-wrapper {
