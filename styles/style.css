@@ -158,7 +158,8 @@ body {
 
     .header__fav-btn {
         font-size: 2.3rem;
-        padding: 40px;
+        padding-top: 40px;
+
     }
 
     .favorite-star {
@@ -199,7 +200,8 @@ body {
 
     .header__fav-btn {
         font-size: 1.3rem;
-        padding: 40px;
+        padding-top: 40px;
+
     }
 
     .favorite-star {
