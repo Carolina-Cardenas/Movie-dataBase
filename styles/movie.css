@@ -7,10 +7,17 @@
     font-size: 24px;
     font-weight: bold;
     color: white;
+    text-align: left;
+}
+
+.movie-media {
+
+    margin-bottom: 20px;
+
 }
 
 .movie-container {
-    display: flex;
+
     align-items: flex-start;
     gap: 20px;
     background-color: black;
@@ -20,16 +27,20 @@
     max-width: 900px;
     margin: auto;
     position: relative;
+
 }
 
 .movie-poster {
     width: 300px;
     height: auto;
     border-radius: 5px;
+    margin-bottom: 20px;
 }
 
 .movie-info {
-    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
 }
 
 hr {
@@ -65,17 +76,11 @@ p {
 
 
 .read-more {
-    color: yellow;
+    color: gold;
     cursor: pointer;
     text-decoration: none;
     font-size: 14px;
 }
-
-.movie-plot.expanded {
-    max-height: none;
-
-}
-
 
 .movie-plot {
     display: -webkit-box;
@@ -85,14 +90,9 @@ p {
     text-overflow: ellipsis;
 }
 
-.read-more {
-    color: yellow;
-    cursor: pointer;
-    text-decoration: none;
-}
-
 
 .movie-plot.expanded {
+    max-height: none;
     display: block;
     -webkit-line-clamp: unset;
 

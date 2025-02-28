@@ -20,12 +20,17 @@ async function displayMovieDetails(movie, favorites = []) {
     }" `
   );
   movieDetailsSection.innerHTML = `
-    <header class="movie-header">
+   <section class="movie-container">
+    <section class="movie-media">
       <h2 class="movie-title">${movie.Title} (${movie.Year})</h2>
-    </header>
-    <section class="movie-container">
-      <img class="movie-poster" src="${movie.Poster}" alt="${movie.Title}" />
-      <article class="movie-info">
+     
+    </section>
+     
+     <article class="movie-info">
+     <section class="movie-img">
+       <img class="movie-poster" src="${movie.Poster}" alt="${movie.Title}" />
+       </section>
+       <section class="movie-details">
         <p><strong>Genre:</strong> ${movie.Genre}</p>
         <p><strong>Runtime:</strong> ${movie.Runtime}</p>
         <hr>
@@ -40,6 +45,7 @@ async function displayMovieDetails(movie, favorites = []) {
         <p><strong>Actors:</strong> ${movie.Actors}</p>
         </article>
        ${svgHTML} 
+        </section>
     </section>
   `;
 
@@ -102,7 +108,7 @@ async function renderMovies(container, movies, favorites = []) {
               <img src="${movie.Poster}" alt="${movie.Title}" />
             </figure>
             <figcaption>${movie.Title}</figcaption>
-          </a>
+          </a>  
         </article>`;
     })
   ).then((results) => results.join(""));
