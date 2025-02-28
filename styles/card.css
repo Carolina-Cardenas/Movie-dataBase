@@ -26,7 +26,6 @@
     background: rgba(51, 44, 38, 0.79);
 }
 
-
 .movie-card:hover {
     transform: scale(1.05);
 }
@@ -71,6 +70,10 @@
 @media (max-width: 768px) {
     .card-container {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .popular-title {
+        font-size: 1.2rem;
     }
 }
 
