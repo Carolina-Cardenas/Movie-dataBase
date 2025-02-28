@@ -55,7 +55,7 @@ body {
 
 .header__logo {
     width: 150px;
-    background-color: yellow;
+    background-color: var(--text-yellow);
 }
 
 .header__form {
@@ -117,4 +117,12 @@ body {
 .favorite-star.favorited path {
     fill: gold;
     stroke: gold;
+}
+
+.favorites-title {
+    color: var(--text-yellow);
+    padding: 30px;
+    margin-bottom: auto;
+    text-align: center;
+    font-size: 40px;
 }

@@ -23,14 +23,9 @@ async function handleMovieSearch(event) {
   try {
     const encodedSearchTerm = encodeURIComponent(searchMovieInput);
 
-    // Redirect to search.html with the search term as a query parameter
     window.location.href = `search.html?search=${encodedSearchTerm}`;
     if (movie && movie.Title) {
-      // if (movie.length === 1) {
-      //   displayMovieDetails(movie);
-      // } else {
       displayMovies(movie);
-      // }
     } else {
       displayNoMovieFound();
     }
