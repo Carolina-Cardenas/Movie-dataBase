@@ -101,8 +101,8 @@ async function renderMovies(container, movies, favorites = []) {
             <figure>
               <img src="${movie.Poster}" alt="${movie.Title}" />
             </figure>
+            <figcaption>${movie.Title}</figcaption>
           </a>
-          <figcaption>${movie.Title}</figcaption>
         </article>`;
     })
   ).then((results) => results.join(""));
